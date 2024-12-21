@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoignez Flutterwave - Opportunités de Travail en Ligne</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #2a9d8f;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2, h3 {
+            margin-bottom: 20px;
+            color: #2a9d8f;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #2a9d8f;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1em;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #21867a;
+        }
+
+        .contact-form {
+            background-color: #e9f5f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .contact-form h3 {
+            color: #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .contact-form button {
+            background-color: #2a9d8f;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #21867a;
+        }
+
+        /* Styles du loader pendant l'envoi */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a9d8f;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .popup p {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .popup .message-sent {
+            color: #2a9d8f;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Rejoignez Flutterwave</h1>
+    <p>Offrez-vous des opportunités de travail en ligne, flexibles et rémunérées, tout en étant chez vous !</p>
+</header>
+
+<div class="container">
+    <h2>Bienvenue sur Flutterwave</h2>
+    <p>Flutterwave est une entreprise innovante offrant des opportunités de travail à distance, accessibles à toute personne motivée par des tâches numériques...</p>
+
+    <!-- Autres sections ici -->
+
+    <!-- Section Contact -->
+    <div class="contact-form">
+        <h3>Nous Contacter</h3>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Votre nom" required>
+            <input type="email" id="email" placeholder="Votre e-mail" required>
+            <textarea id="message" rows="4" placeholder="Votre message" required></textarea>
+            <button type="submit" id="sendButton">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Flutterwave - Opportunités de Travail en Ligne. Tous droits réservés.</p>
+</footer>
+
+<!-- Popup de confirmation -->
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <div class="loader" id="loader"></div>
+    <p id="messageSentText" class="message-sent" style="display:none;">Votre message a été envoyé avec succès !</p>
+</div>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Désactiver le bouton et afficher le loader
+        const button = document.getElementById('sendButton');
+        const loader = document.getElementById('loader');
+        const messageSentText = document.getElementById('messageSentText');
+        button.disabled = true;
+        button.innerHTML = 'Envoi en cours...';
+        loader.style.display = 'block';  // Afficher le loader
+
+        // Afficher le popup et l'overlay
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+
+        // Simuler l'attente de 3 secondes avant d'afficher le message de confirmation
+        setTimeout(function() {
+            // Masquer le loader et afficher le message envoyé
+            loader.style.display = 'none';  
+            messageSentText.style.display = 'block';  
+
+            // Réinitialiser le formulaire et réactiver le bouton après 3 secondes
+            setTimeout(function() {
+                document.getElementById('contactForm').reset();
+                button.disabled = false;
+                button.innerHTML = 'Envoyer';
+                // Cacher le popup et l'overlay après 2 secondes supplémentaires
+                setTimeout(function() {
+                    document.getElementById('popup').style.display = 'none';
+                    document.getElementById('overlay').style.display = 'none';
+                    messageSentText.style.display = 'none';
+                }, 2000);
+            }, 3000);
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>
